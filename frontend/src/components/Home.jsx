@@ -62,11 +62,21 @@ const Home = () => {
   }
 
   useEffect(() => {
-    loginStatus();
-    getBlogs();
-    const savedLoginState = localStorage.getItem('isLoggedIn') === 'true';
-    setIsLoggedIn(savedLoginState);
-  }, []);
+  const init = async () => {
+    const user = localStorage.getItem('username');
+    if (user) {
+      setUsername(user);
+      setIsLoggedIn(true);
+      await getAccess();
+    } else {
+      setIsLoggedIn(false);
+    }
+
+    await getBlogs();
+  };
+
+  init();
+}, []);
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">

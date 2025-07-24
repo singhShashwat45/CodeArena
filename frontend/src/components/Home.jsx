@@ -13,13 +13,17 @@ const Home = () => {
   const nav = useNavigate();
 
   const getBlogs = async () => {
-    const response = await fetch(`${API_BASE_URL}/blogs`, {
-      method: "GET",
-    });
+  try {
+    const response = await fetch(`${API_BASE_URL}/blogs`);
     const json = await response.json();
-    const filteredBlogs = json.filter(blog => !blog.visibility || blog.visibility === 'public').reverse();
+    const filteredBlogs = json
+      .filter(blog => !blog.visibility || blog.visibility === 'public')
+      .reverse();
     setBlogs(filteredBlogs);
+  } catch (err) {
+    console.error("Error fetching blogs:", err);
   }
+}
 
   const getAccess = async () => {
     const response = await fetch(`${API_BASE_URL}/access`, {

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { admin } = require('../utils/checkadminmw');
 
-router.post('/', async (req, res) => {
+router.post('/', admin, async (req, res) => {
   try {
     const newBlog = req.body;
     const blogCollection = db.collection('blogs');

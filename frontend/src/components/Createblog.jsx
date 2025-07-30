@@ -22,6 +22,10 @@ const CreateBlog = () => {
       setStatusMessage('Login Required!!');
       return;
     }
+    if (!title.trim() || !content.trim()) {
+      setStatusMessage("Title and content are required.");
+      return;
+    }
 
     const response = await fetch(`${API_BASE_URL}/createblog`, {
       method: "POST",

@@ -61,12 +61,16 @@ const Createprob = () => {
   }, []);
 
   const addTestCase = () => {
-    updateTestCases([...testCases, {
-      input: testInput,
-      output: testOutput
-    }]);
+    if (!testInput.trim() || !testOutput.trim()) {
+      setStatusMessage("Both input and output are required for a test case");
+      return;
+    }
+    updateTestCases([...testCases, { input: testInput, output: testOutput }]);
+    setTestInput("");
+    setTestOutput("");
     setStatusMessage(`Testcase ${testCases.length + 1} added`);
   };
+
 
   return (
     <div className="min-h-screen bg-gray-900">

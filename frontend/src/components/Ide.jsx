@@ -50,6 +50,17 @@ const CodeEditor = () => {
     setAccess(storedAccess || '');
   }, []);
 
+  // Load saved code on first render
+  useEffect(() => {
+    const savedCode = localStorage.getItem('code');
+    if (savedCode) setCode(savedCode);
+  }, []);
+
+  // Save code to localStorage on change
+  useEffect(() => {
+    localStorage.setItem('code', code);
+  }, [code]);
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">
       <Header 
